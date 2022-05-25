@@ -1,3 +1,36 @@
+### 如何更新到最新的FLEX
+```sh
+1、下载4.5.0版本：https://github.com/FLEXTool/FLEX
+新建动态库，把FLEX源码放入，编译release生成动态库
+
+2、下载：https://github.com/yohunl/FlexInjected
+更新1步中编译好的4.5.0的动态库
+FlexInjected-master/layout/Library/Application Support/FLEXLoader/FLEX.framework
+3、根据本地情况，编辑文件FlexInjected-master/Makefile
+我目前是写死的路径
+
+THEOS_DEVICE_IP = 10.46.135.171
+
+include /opt/theos/makefiles/common.mk
+
+ARCHS = arm64 arm64e
+
+TWEAK_NAME = FlexInjected
+
+FlexInjected_FILES = /FlexInjected-master/Tweak.xm
+
+include /opt/theos/makefiles/tweak.mk
+
+after-install::
+
+install.exec "killall -9 SpringBoard"
+
+4、在FlexInjected-master执行make package install，会有两次输入手机的ssh连接密码，然后手机上就能看到最新的FLEX插件了。
+```
+
+----------
+原readme
+
 # FlexInjected
 
 # iOS 越狱的Tweak开发
